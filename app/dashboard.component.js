@@ -11,7 +11,7 @@ System.register(['angular2/core', 'angular2/router', './hero.service'], function
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
     var core_1, router_1, hero_service_1;
-    var HeroDetailComponent;
+    var DashBoardComponent;
     return {
         setters:[
             function (core_1_1) {
@@ -24,31 +24,32 @@ System.register(['angular2/core', 'angular2/router', './hero.service'], function
                 hero_service_1 = hero_service_1_1;
             }],
         execute: function() {
-            HeroDetailComponent = (function () {
-                function HeroDetailComponent(_heroService, _routeParams) {
+            DashBoardComponent = (function () {
+                function DashBoardComponent(_heroService, _router) {
                     this._heroService = _heroService;
-                    this._routeParams = _routeParams;
+                    this._router = _router;
                 }
-                HeroDetailComponent.prototype.ngOnInit = function () {
+                ;
+                DashBoardComponent.prototype.ngOnInit = function () {
                     var _this = this;
-                    var id = parseInt(this._routeParams.get('id'));
-                    this._heroService.getHero(id).then(function (hero) { return (_this.hero = hero); });
+                    this._heroService.getHeroes().then(function (heroes) { return (_this.heroes = heroes.slice(1, 5)); });
                 };
-                HeroDetailComponent.prototype.goBack = function () {
-                    window.history.back();
+                DashBoardComponent.prototype.gotoDetail = function (hero) {
+                    var link = ['HeroDetail', { id: hero.id }];
+                    this._router.navigate(link);
                 };
-                HeroDetailComponent = __decorate([
+                DashBoardComponent = __decorate([
                     core_1.Component({
-                        selector: 'my-hero-detail',
-                        templateUrl: 'app/templates/hero-detail.component.html',
-                        styleUrls: ['app/styles/hero-detail.component.css']
+                        selector: 'my-dashboard',
+                        templateUrl: 'app/templates/dashboard.component.html',
+                        styleUrls: ['app/styles/dashboard.component.css']
                     }), 
-                    __metadata('design:paramtypes', [hero_service_1.HeroService, router_1.RouteParams])
-                ], HeroDetailComponent);
-                return HeroDetailComponent;
+                    __metadata('design:paramtypes', [hero_service_1.HeroService, router_1.Router])
+                ], DashBoardComponent);
+                return DashBoardComponent;
             }());
-            exports_1("HeroDetailComponent", HeroDetailComponent);
+            exports_1("DashBoardComponent", DashBoardComponent);
         }
     }
 });
-//# sourceMappingURL=hero-detail.component.js.map
+//# sourceMappingURL=dashboard.component.js.map
